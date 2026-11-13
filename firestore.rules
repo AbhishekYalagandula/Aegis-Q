@@ -1,0 +1,81 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isValidBookmark(data) {
+      return data.userId is string && data.userId.size() >= 1 && data.userId.size() <= 128 &&
+             data.sourceFile is string && data.sourceFile.size() <= 200 &&
+             data.recordKey is string && isValidId(data.recordKey) &&
+             data.recordIndex is int && data.recordIndex >= 0 &&
+             data.title is string && data.title.size() >= 1 && data.title.size() <= 200 &&
+             data.subtitle is string && data.subtitle.size() <= 300 &&
+             data.recordUserId is string && data.recordUserId.size() <= 200 &&
+             data.actionName is string && data.actionName.size() <= 120 &&
+             data.timestampText is string && data.timestampText.size() <= 120 &&
+             data.fieldsPreview is string && data.fieldsPreview.size() <= 1500 &&
+             data.tags is list && data.tags.size() <= 10 &&
+             (data.tags.size() == 0 || (data.tags[0] is string && data.tags[0].size() >= 1 && data.tags[0].size() <= 40)) &&
+             data.note is string && data.note.size() <= 500;
+    }
+
+    // Default deny catch-all safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    match /users/{userId}/bookmarks/{bookmarkId} {
+      allow get: if isSignedIn() && request.auth.uid == userId && isValidId(bookmarkId);
+      allow list: if isSignedIn() && request.auth.uid == userId;
+
+      allow create: if isSignedIn() &&
+                       request.auth.uid == userId &&
+                       isValidId(bookmarkId) &&
+                       incoming().userId == request.auth.uid &&
+                       incoming().keys().hasAll([
+                         'userId', 'sourceFile', 'recordKey', 'recordIndex', 'title', 'subtitle',
+                         'recordUserId', 'actionName', 'timestampText', 'fieldsPreview', 'tags',
+                         'note', 'createdAt', 'updatedAt'
+                       ]) &&
+                       incoming().keys().hasOnly([
+                         'userId', 'sourceFile', 'recordKey', 'recordIndex', 'title', 'subtitle',
+                         'recordUserId', 'actionName', 'timestampText', 'fieldsPreview', 'tags',
+                         'note', 'createdAt', 'updatedAt'
+                       ]) &&
+                       incoming().createdAt is timestamp && incoming().createdAt <= request.time &&
+                       incoming().updatedAt is timestamp && incoming().updatedAt <= request.time &&
+                       isValidBookmark(incoming());
+
+      allow update: if isSignedIn() &&
+                       request.auth.uid == userId &&
+                       isValidId(bookmarkId) &&
+                       isValidBookmark(incoming()) &&
+                       incoming().userId == existing().userId &&
+                       incoming().recordKey == existing().recordKey &&
+                       incoming().createdAt == existing().createdAt &&
+                       incoming().updatedAt is timestamp && incoming().updatedAt <= request.time &&
+                       incoming().diff(existing()).affectedKeys().hasOnly([
+                         'tags', 'note', 'sourceFile', 'recordIndex', 'title', 'subtitle',
+                         'recordUserId', 'actionName', 'timestampText', 'fieldsPreview', 'updatedAt'
+                       ]);
+
+      allow delete: if isSignedIn() && request.auth.uid == userId && isValidId(bookmarkId);
+    }
+  }
+}

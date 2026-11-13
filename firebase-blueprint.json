@@ -1,0 +1,93 @@
+{
+  "entities": {
+    "Bookmark": {
+      "title": "Bookmark",
+      "description": "A user-bookmarked and tagged log record saved for quick reference.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Authenticated Firebase UID owning this bookmark."
+        },
+        "sourceFile": {
+          "type": "string",
+          "description": "Filename of the JSON or JSONL log file where the entry originated."
+        },
+        "recordKey": {
+          "type": "string",
+          "description": "Deterministic record identifier linking the bookmark to a parsed log entry."
+        },
+        "recordIndex": {
+          "type": "integer",
+          "description": "1-based record index within the source log collection."
+        },
+        "title": {
+          "type": "string",
+          "description": "Primary title of the bookmarked log entry."
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "Secondary descriptor of the log entry."
+        },
+        "recordUserId": {
+          "type": "string",
+          "description": "Actor or userId extracted from the log entry."
+        },
+        "actionName": {
+          "type": "string",
+          "description": "Action or event name extracted from the log entry."
+        },
+        "timestampText": {
+          "type": "string",
+          "description": "Original timestamp string extracted from the log entry."
+        },
+        "fieldsPreview": {
+          "type": "string",
+          "description": "Formatted summary preview of key-value fields from the log entry."
+        },
+        "tags": {
+          "type": "array",
+          "description": "User-assigned categorization tags (up to 10 tags)."
+        },
+        "note": {
+          "type": "string",
+          "description": "Optional user reference note attached to the bookmark."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp set via FieldValue.serverTimestamp() upon creation."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp set via FieldValue.serverTimestamp() on each update."
+        }
+      },
+      "required": [
+        "userId",
+        "sourceFile",
+        "recordKey",
+        "recordIndex",
+        "title",
+        "subtitle",
+        "recordUserId",
+        "actionName",
+        "timestampText",
+        "fieldsPreview",
+        "tags",
+        "note",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/bookmarks/{bookmarkId}": {
+      "schema": {
+        "$ref": "#/entities/Bookmark"
+      },
+      "description": "User-owned log bookmarks with custom tags and reference notes."
+    }
+  }
+}

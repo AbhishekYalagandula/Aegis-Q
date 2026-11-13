@@ -1,0 +1,6 @@
+{
+  "name": "AccessLog",
+  "description": "Inspects JSON files and applet access history logs with structured tree, record summary, and raw JSON views.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Left curly brace -->
+    <path
+        android:fillColor="#5EEAD4"
+        android:pathData="M40,30 C35,30 33,32.5 33,37 L33,46.5 C33,49.5 31.2,51.2 28.5,51.8 L28.5,56.2 C31.2,56.8 33,58.5 33,61.5 L33,71 C33,75.5 35,78 40,78 L42.5,78 L42.5,72.5 L40.5,72.5 C38.8,72.5 38.2,71.5 38.2,69.5 L38.2,60.5 C38.2,57 36.8,55 34.4,54 C36.8,53 38.2,51 38.2,47.5 L38.2,38.5 C38.2,36.5 38.8,35.5 40.5,35.5 L42.5,35.5 L42.5,30 Z" />
+    <!-- Right curly brace -->
+    <path
+        android:fillColor="#5EEAD4"
+        android:pathData="M68,30 L65.5,30 L65.5,35.5 L67.5,35.5 C69.2,35.5 69.8,36.5 69.8,38.5 L69.8,47.5 C69.8,51 71.2,53 73.6,54 C71.2,55 69.8,57 69.8,60.5 L69.8,69.5 C69.8,71.5 69.2,72.5 67.5,72.5 L65.5,72.5 L65.5,78 L68,78 C73,78 75,75.5 75,71 L75,61.5 C75,58.5 76.8,56.8 79.5,56.2 L79.5,51.8 C76.8,51.2 75,49.5 75,46.5 L75,37 C75,32.5 73,30 68,30 Z" />
+    <!-- Center log lines / nodes inside braces -->
+    <path
+        android:fillColor="#FBBF24"
+        android:pathData="M47,42 A3,3 0 1,0 47,48 A3,3 0 1,0 47,42 Z" />
+    <path
+        android:fillColor="#F8FAFC"
+        android:pathData="M53,43.2 L62.5,43.2 C63.6,43.2 64.5,44.1 64.5,45.2 C64.5,46.3 63.6,47.2 62.5,47.2 L53,47.2 C51.9,47.2 51,46.3 51,45.2 C51,44.1 51.9,43.2 53,43.2 Z" />
+    <path
+        android:fillColor="#38BDF8"
+        android:pathData="M47,51 A3,3 0 1,0 47,57 A3,3 0 1,0 47,51 Z" />
+    <path
+        android:fillColor="#CBD5E1"
+        android:pathData="M53,52.2 L60.5,52.2 C61.6,52.2 62.5,53.1 62.5,54.2 C62.5,55.3 61.6,56.2 60.5,56.2 L53,56.2 C51.9,56.2 51,55.3 51,54.2 C51,53.1 51.9,52.2 53,52.2 Z" />
+    <path
+        android:fillColor="#34D399"
+        android:pathData="M47,60 A3,3 0 1,0 47,66 A3,3 0 1,0 47,60 Z" />
+    <path
+        android:fillColor="#94A3B8"
+        android:pathData="M53,61.2 L62.5,61.2 C63.6,61.2 64.5,62.1 64.5,63.2 C64.5,64.3 63.6,65.2 62.5,65.2 L53,65.2 C51.9,65.2 51,64.3 51,63.2 C51,62.1 51.9,61.2 53,61.2 Z" />
+</vector>
